@@ -5,13 +5,12 @@ build:
 	poetry build
 
 run:
-	poetry run python file_organizer/main.py
+	poetry run python file_organizer/main.py $(DIR)
 
 test:
 	poetry run pytest
 
 clean:
-	rm -rf dist
-	rm -rf build
-	rm -rf *.egg-info
+	rm -rf dist build *.egg-info
+
 
