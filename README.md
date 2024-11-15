@@ -13,7 +13,9 @@ file-organizer/
 │   └── main.py             # Main code logic for organizing files
 ├── Makefile                # Makefile for automated commands
 ├── pyproject.toml          # Poetry configuration for dependencies and build settings
-└── README.md               # Project documentation
+├── README.md               # Project documentation
+└── tests/                  # Folder containing unit tests
+    └── test_organizer.py   # Automated tests for the file organizer functionality
 ```
 
 ## Features
@@ -103,6 +105,22 @@ poetry run python file_organizer/main.py ~/Documents
 
 And if your **Documents** folder contains files like `photo.jpg`, `report.pdf`, and `movie.mp4`, they will be moved to **Images**, **Documents**, and **Videos** folders, respectively.
 
+## Running Tests
+
+To run the unit tests for the File Organizer project, use the following command:
+
+```bash
+poetry run pytest
+```
+
+Alternatively, you can use the `Makefile` command:
+
+```bash
+make test
+```
+
+The tests will automatically create temporary files, organize them, and check if they are moved to the correct folders.
+
 ## Build and Run with Makefile
 
 For convenience, the project includes a **Makefile** with predefined commands to streamline common tasks. You can use the following commands:
@@ -122,7 +140,7 @@ For convenience, the project includes a **Makefile** with predefined commands to
   make run
   ```
 
-- **Run Tests**: (Future implementation) Will execute test cases if they are set up.
+- **Run Tests**: Runs the unit tests to verify functionality.
   ```bash
   make test
   ```
@@ -147,11 +165,12 @@ extensions = {
 }
 ```
 
-- **Add Tests**: Implement test cases in a `tests/` folder using `pytest` for testing the CLI functionality and file organization logic.
+- **Add Tests**: Implement additional test cases in the `tests/` folder using `pytest` to test different scenarios.
 
 ## Future Enhancements
 
 This project is set up to be enhanced with the following features:
-- **Automated Testing**: Add `pytest` tests to ensure functionality.
-- **Linting**: Set up `ruff` or other linting tools for code quality checks.
-- **Documentation Generation**: Use Sphinx for generating technical documentation from docstrings.
+- **Automated Testing**: Additional `pytest` tests for comprehensive coverage.
+- **Linting**: Set up `ruff` or `flake8` for code quality checks.
+- **Documentation Generation**: Use Sphinx to generate technical documentation from docstrings.
+
