@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "file-organizer"
+version = "0.1.0"
+description = "\"Organizes files in a directory by file type.\""
+authors = ["Marouane ELBISSOURI"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click-didyoumean = "^0.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
