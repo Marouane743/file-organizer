@@ -159,6 +159,7 @@ Install `flake8` with pip:
 ```bash
 pip install flake8
 
+---
 
 ## Development
 
