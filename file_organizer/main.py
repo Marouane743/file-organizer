@@ -1,3 +1,12 @@
+"""
+File Organizer
+
+A Python script to organize files in a specified directory into subdirectories
+based on file extensions.
+
+Author: Marouane ELBISSOURI
+"""
+
 import logging
 import os
 import shutil
@@ -13,6 +22,16 @@ logger = logging.getLogger(__name__)
 
 # Function to resolve duplicate file names
 def resolve_duplicate(destination):
+    """
+    Resolves duplicate file names by appending a counter to the file name.
+
+    Args:
+        destination (str): The target file path.
+
+    Returns:
+        str: The updated file path with a unique name.
+    """
+
     base, extension = os.path.splitext(destination)
     counter = 1
     while os.path.exists(destination):
@@ -24,6 +43,17 @@ def resolve_duplicate(destination):
 @click.command()
 @click.argument("directory", type=click.Path(exists=True))
 def organize(directory):
+    """
+    Organizes files in the specified directory into subdirectories
+    based on their file extensions.
+
+    Args:
+        directory (str): The path to the directory to organize.
+
+    Returns:
+        None
+    """
+
     extensions = {
         "Images": [".jpg", ".png", ".gif"],
         "Documents": [".pdf", ".docx", ".txt"],
