@@ -150,6 +150,16 @@ For convenience, the project includes a **Makefile** with predefined commands to
   make clean
   ```
 
+## Static Code Analysis
+
+This project uses `flake8` for static code analysis.
+
+### Installation
+Install `flake8` with pip:
+```bash
+pip install flake8
+
+
 ## Development
 
 If you want to extend the functionality of this project, you can:
