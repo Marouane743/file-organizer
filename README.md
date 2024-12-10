@@ -158,8 +158,7 @@ This project uses `flake8` for static code analysis.
 Install `flake8` with pip:
 ```bash
 pip install flake8
-
----
+```
 
 ## Development
 
