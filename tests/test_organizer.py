@@ -34,3 +34,19 @@ def test_organize(tmp_path):
     # Check that the temporary directory has the expected subdirectories
     for folder in ["Images", "Documents", "Videos", "Others"]:
         assert os.path.exists(tmp_path / folder)
+
+
+def test_files_without_extensions(tmp_path):
+    # Set up test files without extensions
+    file_path = tmp_path / "no_extension"
+    file_path.write_text("content")
+
+    # Use CliRunner to invoke the organize command
+    runner = CliRunner()
+    result = runner.invoke(organize, [str(tmp_path)])
+
+    # Check for successful execution
+    assert result.exit_code == 0
+
+    # Check that the file without an extension was moved to "Others"
+    assert os.path.exists(tmp_path / "Others" / "no_extension")
