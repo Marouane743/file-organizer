@@ -159,6 +159,15 @@ Install `flake8` with pip:
 ```bash
 pip install flake8
 ```
+## Pre-commit Hooks
+
+This project uses `pre-commit` to automate static code analysis with `flake8`.
+
+### Setup
+1. Install `pre-commit`:
+   ```bash
+   pip install pre-commit
+
 
 ## Development
 
