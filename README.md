@@ -186,6 +186,14 @@ extensions = {
 
 - **Add Tests**: Implement additional test cases in the `tests/` folder using `pytest` to test different scenarios.
 
+## Documentation : 
+
+To regenerate the documentation:
+1. Install `pdoc`: `pip install pdoc`
+2. Run: `pdoc file_organizer --output-dir docs/reference`
+The generated documentation will be available in the `docs/reference` folder.
+
+
 ## Future Enhancements
 
 This project is set up to be enhanced with the following features:
