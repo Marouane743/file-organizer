@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"  
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest flake8 bandit
+
+      - name: Run tests
+        run: |
+          pytest --maxfail=1 --disable-warnings
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          echo "## Changelog" > changelog.md
+          echo "Commits since last tag:" >> changelog.md
+          git log $(git describe --tags --abbrev=0 @^)..@ --pretty=format:"- %s" >> changelog.md
+
+      - name: Create GitHub Release
+        if: success()
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}          
+          releaseName: "Release ${{ github.ref_name }}"
+          bodyFile: "changelog.md"
+
