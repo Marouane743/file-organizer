@@ -27,10 +27,21 @@ jobs:
 
     - name: Install dependencies using Poetry
       run: |
-        poetry config virtualenvs.create false 
-        poetry install 
+        poetry config virtualenvs.create false
+        poetry install
 
     - name: Run tests using Poetry
       run: |
-        poetry run pytest tests/ 
+        poetry run pytest tests/
+
+    - name: Lint with flake8
+      run: |
+        poetry run flake8 ./file_organizer --exit-zero
+
+    - name: Analyze code with pylint
+      run: |
+        poetry run pylint ./file_organizer
+
+    - name: Scan for secrets with Gitleaks
+      uses: zricethezav/gitleaks-action@v2
 
