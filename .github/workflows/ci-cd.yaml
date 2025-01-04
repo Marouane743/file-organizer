@@ -86,3 +86,32 @@ jobs:
           artifacts: "dist/*.tar.gz,dist/*.whl"
           artifactErrorsFailBuild: true
 
+  deploy_docs:
+    name: Deploy Documentation
+    needs: [test_matrix]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+    python-version: '3.11'
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install Dependencies
+        run: poetry install
+
+      - name: Generate Docs
+        run: |
+    poetry run pdoc file_organizer --output-dir docs/reference
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: docs/reference
