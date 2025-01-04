@@ -98,7 +98,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-    python-version: '3.11'
+          python-version: '3.11'
 
       - name: Install Poetry
         run: pip install poetry
@@ -108,10 +108,11 @@ jobs:
 
       - name: Generate Docs
         run: |
-    poetry run pdoc file_organizer --output-dir docs/reference
+          poetry run pdoc file_organizer --output-dir docs/reference
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: docs/reference
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/reference
+
