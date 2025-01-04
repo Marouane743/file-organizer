@@ -32,3 +32,12 @@ jobs:
         run: |
           poetry run pytest --maxfail=1 --disable-warnings -v
 
+      - name: Lint with flake8
+        run: |
+          poetry run flake8 file_organizer tests
+
+      - name: Secrets Scan 
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz \
+          | tar xz
+        ./gitleaks detect --source . --no-git
