@@ -41,3 +41,48 @@ jobs:
           curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz \
             | tar xz
           ./gitleaks detect --source . --no-git
+
+  release:
+    name: Release on Tag
+    needs: [test_matrix]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install Dependencies
+        run: poetry install
+
+      - name: Build Distribution
+        run: |
+          poetry build  # creates dist/*.tar.gz and dist/*.whl
+
+      - name: Generate simple changelog
+        id: changelog
+        run: |
+          echo "::set-output name=content::$(git log --pretty=oneline $(git describe --tags --abbrev=0 --always)^..HEAD)"
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            Automatic release for ${{ github.ref_name }}
+
+            Here is the changelog:
+            ${{ steps.changelog.outputs.content }}
+
+          artifacts: "dist/*.tar.gz,dist/*.whl"
+          artifactErrorsFailBuild: true
+
