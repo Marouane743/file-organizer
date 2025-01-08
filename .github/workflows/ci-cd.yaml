@@ -3,6 +3,8 @@ name: CI/CD for File Organizer
 on:
   push:
     branches: ['*']
+    tags:
+      - 'v*.*.*'
   pull_request:
     branches: ['*']
 
@@ -83,7 +85,7 @@ jobs:
   deploy_docs:
     name: Deploy Documentation
     needs: [test_matrix]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
